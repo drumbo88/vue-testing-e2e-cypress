@@ -1,20 +1,13 @@
 describe('Post Test', () => {
-    it('Logged user can access to page and view the posts list.', () => {
-        cy.visit('/login')
-        cy.get('input[type="text"]').type('admin@admin.com')
-        cy.get('input[type="password"]').type('12345678') // valid credential
-        cy.get('button').click()
+    beforeEach(() => {
+        cy.login('admin@admin.com', '12345678')
         cy.url().should('eq', 'http://localhost:8080/') // sent to home (protected)
+    })
+    it('Logged user can access to page and view the posts list.', () => {
         cy.contains('h1', 'Posts List')
         cy.contains('sunt aut facere repellat') // post 1
     })
     it('Logged user can access to detail post view.', () => {
-        cy.visit('/login')
-        cy.get('input[type="text"]').type('admin@admin.com')
-        cy.get('input[type="password"]').type('12345678') // valid credential
-        cy.get('button').click()
-        cy.url().should('eq', 'http://localhost:8080/') // sent to home (protected)
-
         cy.contains('h1', 'Posts List')
         cy.contains('sunt aut facere repellat').click() // post 1 title
         cy.url().should('eq', 'http://localhost:8080/detail/1')
@@ -22,12 +15,6 @@ describe('Post Test', () => {
         cy.contains('quia et suscipit suscipit recusandae') // post 1 body
     })
     it('Logged user can go back from detail post view.', () => {
-        cy.visit('/login')
-        cy.get('input[type="text"]').type('admin@admin.com')
-        cy.get('input[type="password"]').type('12345678') // valid credential
-        cy.get('button').click()
-        cy.url().should('eq', 'http://localhost:8080/') // sent to home (protected)
-
         cy.contains('h1', 'Posts List')
         cy.contains('sunt aut facere repellat').click() // post 1 title
         cy.url().should('eq', 'http://localhost:8080/detail/1')
