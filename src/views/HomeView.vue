@@ -1,5 +1,5 @@
 <template>
-  <h1>Home</h1>
+  <h1>Posts List</h1>
   <ul>
     <li v-for="post in posts" :key="post.id">
         <RouterLink :to="{name: 'detail', params: { id: post.id }}">

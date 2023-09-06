@@ -17,7 +17,7 @@ const error = ref(false);
 
 const store = useAuth()
 const login = () => {
-    error.value = store.login(email.value, password.value)
+    error.value = !store.login(email.value, password.value)
     if (store.is_auth) {
         router.push('/')
     }
